@@ -8,7 +8,7 @@ from flask import Flask
 from threading import Thread
 import os
 
-# שרת Keep Alive
+# שרת Keep Alive כדי שהבוט לא יירדם
 app = Flask('')
 @app.route('/')
 def home():
@@ -31,7 +31,8 @@ if not firebase_admin._apps:
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!", intents=intents)
 
-TOKEN = "כאן_הטוקן_שלך"
+# החלף כאן בטוקן החדש שלך
+TOKEN = "MTQ3ODU0MzM5NDI3NTA2NTk4OA.Gs_nD7.7bjGbIzQRyxySbI0zYLrpLxdvZ2a7uJFZmzPJw"
 LOG_CHANNEL_ID = 1478512328356925571
 
 class CloseTicketView(View):
@@ -92,12 +93,12 @@ async def setup(ctx):
     embed = discord.Embed(title="🛍️ סיום רכישה", description="לחץ למטה לפתיחת טיקט", color=0xbc13fe)
     await ctx.send(embed=embed, view=TicketView())
 
-# הפעלה עם מנגנון הגנה נגד חסימות זמניות
+# הפעלה עם הגנה מפני חסימות דיסקורד
 keep_alive()
 try:
     bot.run(TOKEN)
 except discord.errors.HTTPException as e:
     if e.status == 429:
-        print("Discord is rate limiting us. Please wait a few minutes or restart the service.")
+        print("Discord is rate limiting us. Please wait a few minutes and try to restart.")
     else:
         raise e
